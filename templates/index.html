@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div>
+  <div class="row justify-content-between">
+    <div style="text-align:left" class="col-sm-6">
+        <h3 style="color:blue" >Trips planned</h3>
+    </div>
+    <div style="text-align:right" class="col-sm-6">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add new trip
+        </button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+{% for row in trips %}
+  <div class="col-sm-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ row["title"] }}</h5>
+        <p class="card-text">{{ row["date"] }} </p>
+        <a href="/trip/{{row['id']}}" class="btn btn-primary">See trip</a>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add a new trip</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+       <form action="/add_trip" method="post">
+        <div class="modal-body">
+            <div class="container">
+                <div class="row gy-2">
+                    <div class="col align-self-start">
+                        <input class="form-control" id="title" name="title" placeholder="Trip title">
+                    </div>
+                    <div class="col align-self-start">
+                        <input autocomplete="off" autofocus class="form-control" id="date" name="date" type="date">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

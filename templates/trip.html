@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div>
+  <div class="row justify-content-between">
+    <div style="text-align:left" class="col-sm-6">
+        <h3 style="color:blue" >{{trip[0].title}}</h3>
+    </div>
+    <div style="text-align:right" class="col-sm-6">
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+        Add new item
+        </button>
+
+    </div>
+  </div>
+</div>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Place to visit</th>
+      <th scope="col">Restaurant</th>
+      <th scope="col">Hotel</th>
+      <th scope="col">Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for row in plans %}
+    <tr>
+      <td>{{ row["date"] }} </td>
+      <td>{{ row["tourist_place"] }} </td>
+      <td>{{ row["restaurant"] }} </td>
+      <td>{{ row["hotel"] }} </td>
+      <td>{{ row["note"] }} </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">New plan item</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+ <form action="/add_item" method="post">
+  <div class="offcanvas-body">
+<div class="container">
+<input autocomplete="off" autofocus class="form-control" id="trip_id" name="trip_id" value="{{trip[0].id}}" type="hidden">
+                <div class="row gy-2">
+                   <div style="text-align:left" class="col-sm-12">
+                        <label for="item_date" class="form-label">Date</label>
+                        <input autocomplete="off" autofocus class="form-control" id="item_date" name="item_date" type="date">
+                    </div>
+                    <div style="text-align:left" class="col-sm-12">
+                        <label for="tourist_place" class="form-label">Place to visit</label>
+                        <input autocomplete="off" autofocus class="form-control" id="tourist_place" name="tourist_place" >
+                    </div>
+                     <div style="text-align:left" class="col-sm-12">
+                        <label for="restaurant" class="form-label">Restaurant</label>
+                        <input autocomplete="off" autofocus class="form-control" id="restaurant" name="restaurant" >
+                    </div>
+                     <div style="text-align:left" class="col-sm-12">
+                        <label for="hotel" class="form-label">Hotel</label>
+                        <input autocomplete="off" autofocus class="form-control" id="hotel" name="hotel" >
+                    </div>
+                     <div style="text-align:left" class="col-sm-12">
+                        <label for="notes" class="form-label">Note</label>
+                        <textarea style="resize: none;" autocomplete="off" rows="5" autofocus class="form-control" id="notes" name="notes" ></textarea>
+                    </div>
+
+                </div>
+            </div>
+  </div>
+   <div class="offcanvas-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+   </div>
+ </form>
+</div>
+{% endblock %}
